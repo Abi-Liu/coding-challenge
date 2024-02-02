@@ -68,7 +68,7 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 ---
 
-# Bug 1: Select dropdown doesn't scroll with rest of the page
+_DONE_ # Bug 1: Select dropdown doesn't scroll with rest of the page
 
 **How to reproduce:**
 

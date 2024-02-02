@@ -13,11 +13,17 @@ export function App() {
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
-
-  const transactions = useMemo(
-    () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
-    [paginatedTransactions, transactionsByEmployee]
-  )
+  console.log(paginatedTransactions)
+  console.log(transactionsByEmployee)
+  const transactions = useMemo(() => {
+    if (paginatedTransactions) {
+      return paginatedTransactions.data
+    } else if (transactionsByEmployee) {
+      return transactionsByEmployee
+    } else {
+      return null
+    }
+  }, [paginatedTransactions, transactionsByEmployee])
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
