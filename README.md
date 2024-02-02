@@ -90,7 +90,7 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** Nothing happens
 
-# Bug 3: Cannot select _All Employees_ after selecting an employee
+_DONE_ # Bug 3: Cannot select _All Employees_ after selecting an employee
 
 **How to reproduce:**
 
