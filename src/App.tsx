@@ -17,7 +17,7 @@ export function App() {
     transactionsLoading: false,
   })
   const [transactionState, setTransactionState] = useState<Transaction[]>([])
-  console.log(paginatedTransactions)
+
   useEffect(() => {
     if (paginatedTransactions) {
       setTransactionState((prev) => [...prev, ...paginatedTransactions.data])
