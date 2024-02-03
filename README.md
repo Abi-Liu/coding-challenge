@@ -68,7 +68,7 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 ---
 
-_DONE_ # Bug 1: Select dropdown doesn't scroll with rest of the page
+# DONE Bug 1: Select dropdown doesn't scroll with rest of the page
 
 **How to reproduce:**
 
@@ -90,7 +90,7 @@ _DONE_ # Bug 1: Select dropdown doesn't scroll with rest of the page
 
 **Actual:** Nothing happens
 
-_DONE_ # Bug 3: Cannot select _All Employees_ after selecting an employee
+# DONE Bug 3: Cannot select _All Employees_ after selecting an employee
 
 **How to reproduce:**
 
@@ -103,7 +103,7 @@ _DONE_ # Bug 3: Cannot select _All Employees_ after selecting an employee
 
 **Actual:** The page crashes
 
-_DONE_ # Bug 4: Clicking on View More button not showing correct data
+# DONE Bug 4: Clicking on View More button not showing correct data
 
 **How to reproduce:**
 
