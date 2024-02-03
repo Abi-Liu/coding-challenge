@@ -17,7 +17,7 @@ export function App() {
     transactionsLoading: false,
   })
   const [transactionState, setTransactionState] = useState<Transaction[]>([])
-
+  console.log(paginatedTransactions)
   useEffect(() => {
     if (paginatedTransactions) {
       setTransactionState((prev) => [...prev, ...paginatedTransactions.data])
@@ -53,6 +53,35 @@ export function App() {
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
 
+  function displayViewMoreButton() {
+    if (transactionState.length !== 0 && paginatedTransactions) {
+      if (paginatedTransactions.nextPage !== null) {
+        return (
+          <button
+            className="RampButton"
+            disabled={paginatedTransactionsUtils.loading}
+            onClick={async () => {
+              await loadAllTransactions()
+            }}
+          >
+            View More
+          </button>
+        )
+      }
+    }
+    // transactionState.length !== 0 && paginatedTransactions && (
+    //   <button
+    //     className="RampButton"
+    //     disabled={paginatedTransactionsUtils.loading}
+    //     onClick={async () => {
+    //       await loadAllTransactions()
+    //     }}
+    //   >
+    //     View More
+    //   </button>
+    // )
+  }
+
   return (
     <Fragment>
       <main className="MainContainer">
@@ -84,17 +113,7 @@ export function App() {
         <div className="RampGrid">
           <Transactions transactions={transactionState} />
 
-          {transactionState.length !== 0 && (
-            <button
-              className="RampButton"
-              disabled={paginatedTransactionsUtils.loading}
-              onClick={async () => {
-                await loadAllTransactions()
-              }}
-            >
-              View More
-            </button>
-          )}
+          {displayViewMoreButton()}
         </div>
       </main>
     </Fragment>
