@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react"
+import { Fragment, useCallback, useEffect, useState } from "react"
 import { InputSelect } from "./components/InputSelect"
 import { Instructions } from "./components/Instructions"
 import { Transactions } from "./components/Transactions"
@@ -6,22 +6,22 @@ import { useEmployees } from "./hooks/useEmployees"
 import { usePaginatedTransactions } from "./hooks/usePaginatedTransactions"
 import { useTransactionsByEmployee } from "./hooks/useTransactionsByEmployee"
 import { EMPTY_EMPLOYEE } from "./utils/constants"
-import { Employee } from "./utils/types"
+import { Employee, Transaction } from "./utils/types"
 
 export function App() {
   const { data: employees, ...employeeUtils } = useEmployees()
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
-  console.log(paginatedTransactions)
-  console.log(transactionsByEmployee)
-  const transactions = useMemo(() => {
+  const [transactionState, setTransactionState] = useState<Transaction[]>([])
+
+  useEffect(() => {
     if (paginatedTransactions) {
-      return paginatedTransactions.data
+      setTransactionState((prev) => [...prev, ...paginatedTransactions.data])
     } else if (transactionsByEmployee) {
-      return transactionsByEmployee
+      setTransactionState((prev) => [...prev, ...transactionsByEmployee])
     } else {
-      return null
+      setTransactionState([])
     }
   }, [paginatedTransactions, transactionsByEmployee])
 
@@ -78,9 +78,9 @@ export function App() {
         <div className="RampBreak--l" />
 
         <div className="RampGrid">
-          <Transactions transactions={transactions} />
+          <Transactions transactions={transactionState} />
 
-          {transactions !== null && (
+          {transactionState.length !== 0 && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}

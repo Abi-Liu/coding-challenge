@@ -103,7 +103,7 @@ _DONE_ # Bug 3: Cannot select _All Employees_ after selecting an employee
 
 **Actual:** The page crashes
 
-# Bug 4: Clicking on View More button not showing correct data
+_DONE_ # Bug 4: Clicking on View More button not showing correct data
 
 **How to reproduce:**
 
