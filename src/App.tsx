@@ -12,7 +12,10 @@ export function App() {
   const { data: employees, ...employeeUtils } = useEmployees()
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState({
+    employeeLoading: false,
+    transactionsLoading: false,
+  })
   const [transactionState, setTransactionState] = useState<Transaction[]>([])
 
   useEffect(() => {
@@ -26,13 +29,14 @@ export function App() {
   }, [paginatedTransactions, transactionsByEmployee])
 
   const loadAllTransactions = useCallback(async () => {
-    setIsLoading(true)
+    setIsLoading({ employeeLoading: true, transactionsLoading: true })
     transactionsByEmployeeUtils.invalidateData()
 
     await employeeUtils.fetchAll()
+    setIsLoading((prev) => ({ ...prev, employeeLoading: false }))
     await paginatedTransactionsUtils.fetchAll()
 
-    setIsLoading(false)
+    setIsLoading((prev) => ({ ...prev, transactionsLoading: false }))
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
@@ -57,7 +61,7 @@ export function App() {
         <hr className="RampBreak--l" />
 
         <InputSelect<Employee>
-          isLoading={isLoading}
+          isLoading={isLoading.employeeLoading}
           defaultValue={EMPTY_EMPLOYEE}
           items={employees === null ? [] : [EMPTY_EMPLOYEE, ...employees]}
           label="Filter by employee"
