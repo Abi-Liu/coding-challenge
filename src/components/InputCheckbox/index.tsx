@@ -5,11 +5,6 @@ import { InputCheckboxComponent } from "./types"
 export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, disabled, onChange }) => {
   const { current: inputId } = useRef(`RampInputCheckbox-${id}`)
 
-  async function handleChange() {
-    console.log("fired")
-    await onChange(!checked)
-  }
-
   return (
     <div className="RampInputCheckbox--container" data-testid={inputId}>
       <label
@@ -17,6 +12,7 @@ export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, dis
           "RampInputCheckbox--label-checked": checked,
           "RampInputCheckbox--label-disabled": disabled,
         })}
+        htmlFor={inputId}
       />
       <input
         id={inputId}
@@ -24,7 +20,7 @@ export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, dis
         className="RampInputCheckbox--input"
         checked={checked}
         disabled={disabled}
-        onChange={handleChange}
+        onChange={() => onChange(!checked)}
       />
     </div>
   )
